@@ -23,7 +23,7 @@ while getData:
     last = last2 % 11
 #    print 'last',last
     if last == 10:
-        i = 1
+        i = 1 #powinien wrócić do generowania
     else:
         nip.append(last)
         print ''.join(str(i) for i in nip)
