@@ -23,7 +23,6 @@ while True:
     print last
 
     if last == 10:
-        print "weszło"
         continue
     else:
         nip.append(last)
