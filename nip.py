@@ -2,28 +2,29 @@
 #generator nip
 
 import random
-nip = []
+
 scale = [6,5,7,2,3,4,5,6,7]
-i = 1
-last2 = 0
-getData = True
-while getData:
-    for i in range(1,10):
-        if i == 1 or i == 3:
+
+while True:
+    nip=[]
+    i=0
+    last1=0
+    for i in range(0,9):
+        if i == 0 or i == 2:
             number = random.randint(1, 9)
         else:
             number = random.randint(0, 9)
 
         nip.append(number)
+        last1 = last1 + (nip[i] * scale[i])
         i = len(nip)
-        #print 'i',i
-        last1 = (nip[i-1] * scale[i-1])
-        last2 = last2 + last1
 
-    last = last2 % 11
-#    print 'last',last
+    last = last1 % 11
+    print last
+
     if last == 10:
-        i = 1 #powinien wrócić do generowania
+        print "weszło"
+        continue
     else:
         nip.append(last)
         print ''.join(str(i) for i in nip)
