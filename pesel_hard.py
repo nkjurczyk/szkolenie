@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-path=r'C:\python dla testerow\pesel.txt'
-path2=r'C:\python dla testerow\pesel2.txt'
+#path=r'C:\python dla testerow\pesel.txt'
+#path2=r'C:\python dla testerow\pesel2.txt'
 pesel=[]
 day=[]
 d=0
@@ -80,7 +80,7 @@ def check_pesel(last2=0):
         check.append(10 - last)
 
 def write():
-    append_file = open(path2, 'a')
+    append_file = open('zapisane_numery_pesel.txt', 'a')
     append_file.write (pesel[0][:11])
     append_file.write (" : ")
     append_file.write(' '.join(str(i) for i in day))
@@ -89,18 +89,17 @@ def write():
 
 #------------------------------------------------------------
 
-file=open(path)
+file=open('lista_pesel.txt')
 
 for line in file:
-    check_pesel()
     pesel.append(line)
-    year=[]
-    check=[]
+    del year[:]
+    del check[:]
     check_pesel()
     month = int(line[2] + line[3])
     birth_date()
-    day=[]
-    pesel=[]
+    del day[:]
+    del pesel[:]
 print 'poprawne',len(correct), ' :\n', ('\n'.join(str(i) for i in correct))
 print 'niepoprawne', len(incorrect), ' :\n', ('\n'.join(str(i) for i in incorrect))
 file.close()
