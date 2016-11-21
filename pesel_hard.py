@@ -31,7 +31,8 @@ def data(d):
         print 'Niepoprawny rok'
     return d
 
-def month_name(month):
+
+def month_name():
     a=int(line[2]+line[3])-data(d)
     if a ==1:
         month='stycznia'
@@ -61,23 +62,28 @@ def month_name(month):
 
 
 def birth_date():
-    if int(line[10])==int(check[0]):
-        month_name(month)
-        correct.append(pesel[0][:11])
-        day.extend([(line[4] + line[5]), month_name(month), str(year[0]) + line[0] + line[1]])
-        write()
+    if len(line)==12:
+        check_pesel()
+        if int(line[10])==int(check[0]):
+            month_name()
+            correct.append(pesel[0][:11])
+            day.extend([(line[4] + line[5]), month_name(), str(year[0]) + line[0] + line[1]])
+            write()
+        else:
+            incorrect.append(pesel[0][:len(line)-1])
     else:
-        incorrect.append(pesel[0][:11])
+        incorrect.append(pesel[0][:len(line)-1])
+    del day[:]
+    del pesel[:]
 
-def check_pesel(last2=0):
+def check_pesel(control_sum=0):
     for a in range(0, 10):
-        last1 = (int(line[a]) * scale[a])
-        last2 = last2 + last1
-    last = (last2 % 10)
-    if last == 0:
+        control_sum = control_sum + (int(line[a]) * scale[a])
+    last_number = (control_sum % 10)
+    if last_number == 0:
         check.append(0)
     else:
-        check.append(10 - last)
+        check.append(10 - last_number)
 
 def write():
     append_file = open('zapisane_numery_pesel.txt', 'a')
@@ -95,11 +101,9 @@ for line in file:
     pesel.append(line)
     del year[:]
     del check[:]
-    check_pesel()
     month = int(line[2] + line[3])
     birth_date()
-    del day[:]
-    del pesel[:]
+
 print 'poprawne',len(correct), ' :\n', ('\n'.join(str(i) for i in correct))
 print 'niepoprawne', len(incorrect), ' :\n', ('\n'.join(str(i) for i in incorrect))
 file.close()
